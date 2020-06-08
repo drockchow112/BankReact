@@ -4,7 +4,7 @@ import axios from "axios";
 class Debits extends Component {
   constructor(props) {
     super(props);
-    this.state = { data: [] };
+    this.state = { data: [], accountBalance: this.props.accountBalance};
     this.handleChange = this.handleChange.bind(this);
     this.addDebit = this.addDebit.bind(this);
   }
