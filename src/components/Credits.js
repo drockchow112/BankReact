@@ -45,13 +45,20 @@ class Credits extends Component {
   render() {
     const data = this.props.creditData;
 
-    const creditDivs = data.map(obj => (
-      <div>
-        <div>ID: {obj.id}</div>
-        <div>Desciption: {obj.description}</div>
-        <div>Amount: {obj.amount}</div>
-      </div>
-    ));
+    const creditDivs = data.map((obj, index) => {
+      return index < 10 ? (
+        <div>
+          <div>ID: {obj.id}</div>
+          <div>Desciption: {obj.description}</div>
+          <div>Amount: {obj.amount}</div>
+        </div>
+      ) : (
+        <div>
+          <div>Desciption: {obj.description}</div>
+          <div>Amount: {obj.amount}</div>
+        </div>
+      );
+    });
     return (
       <>
         <Link to="/">Back to Home</Link>
