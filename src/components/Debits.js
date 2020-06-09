@@ -49,17 +49,24 @@ class Debits extends Component {
   render() {
     const data = this.props.debitData;
 
-    const debitDivs = data.map(obj => (
-      <div>
-        <div>Desciption: {obj.description}</div>
-        <div>Amount: {obj.amount}</div>
-      </div>
-    ));
+    const debitDivs = data.map((obj, index) => {
+      return index < 10 ? (
+        <div>
+          <div>ID: {obj.id}</div>
+          <div>Desciption: {obj.description}</div>
+          <div>Amount: {obj.amount}</div>
+        </div>
+      ) : (
+        <div>
+          <div>Desciption: {obj.description}</div>
+          <div>Amount: {obj.amount}</div>
+        </div>
+      );
+    });
 
     return (
       <>
         <Link to="/">Back to Home</Link>
-
         <input type="text" name="description" onChange={this.handleChange} />
         <input type="number" name="amount" onChange={this.handleChange} />
         <button onClick={this.addDebit}> Add Debit </button>
