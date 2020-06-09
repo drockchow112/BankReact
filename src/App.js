@@ -8,19 +8,25 @@ import Debits from "./components/Debits";
 import AccountBalance from "./components/AccountBalance";
 import Credits from "./components/Credits";
 import axios from "axios";
+import { parse } from "@babel/parser";
 
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
-      debits: " ",
-      credits: " ",
+      debitInfo: [],
+      creditData: [],
+      debits: parseFloat("0"),
+      credits: parseFloat("0"),
       currentUser: {
         userName: "bob_loblaw",
         memberSince: "08/23/99"
       }
     };
+
+    this.addDebits = this.addDebits.bind(this);
+    this.addCredits = this.addCredits.bind(this);
   }
 
   componentDidMount() {
@@ -30,7 +36,11 @@ class App extends Component {
       for (let i = 0; i < credits.length; i++) {
         creditAmount += credits[i].amount;
       }
-      this.setState({ credits: creditAmount });
+      const creditArr = res.data;
+      this.setState({
+        creditData: creditArr,
+        credits: this.state.credits + parseFloat(creditAmount)
+      });
     });
 
     axios.get("https://moj-api.herokuapp.com/debits").then(res => {
@@ -39,7 +49,11 @@ class App extends Component {
       for (let i = 0; i < debits.length; i++) {
         debitAmount += debits[i].amount;
       }
-      this.setState({ debits: debitAmount });
+      const debitArr = res.data;
+      this.setState({
+        debitInfo: debitArr,
+        debits: this.state.debits + parseFloat(debitAmount)
+      });
     });
   }
 
@@ -47,6 +61,20 @@ class App extends Component {
     const newUser = { ...this.state.currentUser };
     newUser.userName = logInInfo.userName;
     this.setState({ currentUser: newUser });
+  };
+
+  addDebits = (val, obj) => {
+    this.setState({
+      debitInfo: [...this.state.debitInfo, obj],
+      debits: parseFloat(this.state.debits + parseFloat(val))
+    });
+  };
+
+  addCredits = (val, obj) => {
+    this.setState({
+      creditData: [...this.state.creditData, obj],
+      credits: parseFloat(this.state.credits + parseFloat(val))
+    });
   };
 
   render() {
@@ -63,7 +91,11 @@ class App extends Component {
         <AccountBalance
           accountBalance={this.state.debits - this.state.credits}
         />
-        <Debits accountBalance={this.state.debits - this.state.credits} />
+        <Debits
+          accountBalance={this.state.debits - this.state.credits}
+          debitData={this.state.debitInfo}
+          handler={this.addDebits.bind(this)}
+        />
       </>
     );
 
@@ -72,7 +104,11 @@ class App extends Component {
         <AccountBalance
           accountBalance={this.state.debits - this.state.credits}
         />
-        <Credits />
+        <Credits
+          accountBalance={this.state.debits - this.state.credits}
+          creditData={this.state.creditData}
+          handler={this.addCredits.bind(this)}
+        />
       </>
     );
 
