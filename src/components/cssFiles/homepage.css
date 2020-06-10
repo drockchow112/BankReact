@@ -1,0 +1,13 @@
+.homepage {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: salmon;
+}
+
+.links {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 10px;
+  width: 400px;
+}

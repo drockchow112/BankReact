@@ -1,0 +1,15 @@
+.firstCredit {
+  color: salmon;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.allCredits {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.allCredits > div {
+  border: 2px solid black;
+}
