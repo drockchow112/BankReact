@@ -13,10 +13,11 @@ class LogIn extends Component {
     };
   }
 
-  handeChange = e => {
+  handleChange = e => {
+    console.log("Called me?");
     const updatedUser = { ...this.state.user };
     const inputField = e.target.name;
-    const inputValue = e.target.inputValue;
+    const inputValue = e.target.value;
     updatedUser[inputField] = inputValue;
 
     this.setState({ user: updatedUser });
@@ -41,7 +42,7 @@ class LogIn extends Component {
             <input
               type="text"
               name="userName"
-              onChange={this.handeChange}
+              onChange={this.handleChange}
               value={this.state.user.userName}
             />
           </div>
@@ -49,7 +50,7 @@ class LogIn extends Component {
             <label htmlFor="password">Password</label>
             <input type="password" name="password" />
           </div>
-          <butto>Log In</butto>
+          <button>Log In</button>
         </form>
       </div>
     );

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./App.css";
 import Home from "./components/home";
 import UserProfile from "./components/UserProfile";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -8,7 +7,8 @@ import Debits from "./components/Debits";
 import AccountBalance from "./components/AccountBalance";
 import Credits from "./components/Credits";
 import axios from "axios";
-import { parse } from "@babel/parser";
+import "./App.css";
+import "bulma/css/bulma.css";
 
 class App extends Component {
   constructor() {
@@ -88,27 +88,25 @@ class App extends Component {
 
     const debitComponent = () => (
       <>
-        <AccountBalance
-          accountBalance={this.state.debits - this.state.credits}
-        />
-        <Debits
-          accountBalance={this.state.debits - this.state.credits}
-          debitData={this.state.debitInfo}
-          handler={this.addDebits.bind(this)}
-        />
+        <div className="debits">
+          <Debits
+            accountBalance={this.state.debits - this.state.credits}
+            debitData={this.state.debitInfo}
+            handler={this.addDebits.bind(this)}
+          />
+        </div>
       </>
     );
 
     const creditComponent = () => (
       <>
-        <AccountBalance
-          accountBalance={this.state.debits - this.state.credits}
-        />
-        <Credits
-          accountBalance={this.state.debits - this.state.credits}
-          creditData={this.state.creditData}
-          handler={this.addCredits.bind(this)}
-        />
+        <div>
+          <Credits
+            accountBalance={this.state.debits - this.state.credits}
+            creditData={this.state.creditData}
+            handler={this.addCredits.bind(this)}
+          />
+        </div>
       </>
     );
 
@@ -118,7 +116,7 @@ class App extends Component {
     const UserProfileComponent = () => (
       <UserProfile
         userName={this.state.currentUser.userName}
-        memberSince={this.state.currentUser.userName}
+        memberSince={this.state.currentUser.memberSince}
       />
     );
 

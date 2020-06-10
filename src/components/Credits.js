@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import AccountBalance from "./AccountBalance";
+import "./cssFiles/credits.css";
 
 class Credits extends Component {
   constructor(props) {
@@ -61,12 +63,16 @@ class Credits extends Component {
     });
     return (
       <>
-        <Link to="/">Back to Home</Link>
-        <input type="text" name="description" onChange={this.handleChange} />
-        <input type="number" name="amount" onChange={this.handleChange} />
-        <button onClick={this.addCredit}> Add Credits </button>
-        <h1>Credits</h1>
-        <div>{creditDivs}</div>
+        <div className="firstCredit">
+          <AccountBalance accountBalance={this.props.accountBalance} />
+          <Link to="/">Back to Home</Link>
+
+          <input type="text" name="description" onChange={this.handleChange} />
+          <input type="number" name="amount" onChange={this.handleChange} />
+          <button onClick={this.addCredit}> Add Credits </button>
+          <h1>Credits</h1>
+        </div>
+        <div className="allCredits">{creditDivs}</div>
       </>
     );
   }
